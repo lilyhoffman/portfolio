@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projects | Lily Hoffman</title>
+  <meta
+    name="description"
+    content="Lily Hoffman — Boston-based Northeastern graduate building data pipelines, streaming systems, and cloud analytics platforms."
+  >
+  <meta name="theme-color" content="#172f39">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <a class="brand" href="index.html">
+      Lily Hoffman
+      <span class="brand-sub">DATA & ENGINEERING</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="experience.html">Experience</a>
+      <a class="resume" href="assets/lily-hoffman-resume.pdf">
+        Resume ↗
+      </a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro">
+      <p class="eyebrow">PERSONAL PROJECTS / SEPTEMBER 2026</p>
+
+      <h1>
+        Built to understand<br>
+        how data systems work.
+      </h1>
+
+      <p>
+        Batch, streaming, and cloud projects—with attention to data quality,
+        repeatable processing, and recovery.
+      </p>
+
+      <div class="project-jumps">
+        <a href="#markets">01 BATCH PROCESSING ↓</a>
+        <a href="#streaming">02 EVENT STREAMING ↓</a>
+        <a href="#cloud">03 CLOUD DATA ENGINEERING ↓</a>
+      </div>
+    </section>
+
+    <article class="project" id="markets">
+      <div class="project-title">
+        <div>
+          <p class="eyebrow">01 / BATCH PROCESSING</p>
+          <h2>Financial Markets Data Platform</h2>
+          <p class="tools">
+            Python · PySpark · PostgreSQL · dbt · Airflow
+          </p>
+        </div>
+
+        <a
+          class="button outline"
+          href="https://github.com/lilyhoffman/data-engineering-portfolio/tree/main/financial-market-data-platform"
+        >
+          View code & README ↗
+        </a>
+      </div>
+
+      <ol class="flow" aria-label="Pipeline architecture">
+        <li>
+          <span>01</span>
+          <strong>Yahoo Finance</strong>
+        </li>
+        <li>
+          <span>02</span>
+          <strong>Bronze / raw CSV</strong>
+        </li>
+        <li>
+          <span>03</span>
+          <strong>Silver / PySpark + Parquet</strong>
+        </li>
+        <li>
+          <span>04</span>
+          <strong>Gold / PostgreSQL + dbt</strong>
+        </li>
+      </ol>
+
+      <div class="project-copy">
+        <div>
+          <h3>The problem</h3>
+          <p>
+            Daily market data needs consistent validation and reliable updates
+            before it can support analysis.
+          </p>
+        </div>
+
+        <div>
+          <h3>What I built</h3>
+          <p>
+            I built an incremental pipeline for five tickers, organized into
+            Bronze, Silver, and Gold layers. PySpark validates prices and
+            enriches records with company information; dbt calculates daily
+            returns and five-day moving averages.
+          </p>
+        </div>
+
+        <div>
+          <h3>Engineering choices</h3>
+          <p>
+            A composite ticker/date key and transactional loads prevent
+            duplicate records on reruns. Airflow coordinates weekday runs,
+            retries, quality tests, and audit logging.
+          </p>
+        </div>
+
+        <div>
+          <h3>Result & validation</h3>
+          <p>
+            Repeated runs insert zero duplicate rows, with dbt tests checking
+            required fields, uniqueness, price ranges, and analytics outputs.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="streaming">
+      <div class="project-title">
+        <div>
+          <p class="eyebrow">02 / EVENT STREAMING</p>
+          <h2>Real-Time E-Commerce Pipeline</h2>
+          <p class="tools">
+            Kafka · PySpark · PostgreSQL · Docker
+          </p>
+        </div>
+
+        <a
+          class="button outline"
+          href="https://github.com/lilyhoffman/data-engineering-portfolio/tree/main/real-time-ecommerce-pipeline"
+        >
+          View code & README ↗
+        </a>
+      </div>
+
+      <ol class="flow" aria-label="Pipeline architecture">
+        <li>
+          <span>01</span>
+          <strong>Python order producer</strong>
+        </li>
+        <li>
+          <span>02</span>
+          <strong>Kafka / order events</strong>
+        </li>
+        <li>
+          <span>03</span>
+          <strong>PySpark / validation + windows</strong>
+        </li>
+        <li>
+          <span>04</span>
+          <strong>PostgreSQL / orders + metrics</strong>
+        </li>
+      </ol>
+
+      <div class="project-copy">
+        <div>
+          <h3>The problem</h3>
+          <p>
+            Orders arrive continuously, and a useful pipeline needs to handle
+            duplicates, late events, and interruptions.
+          </p>
+        </div>
+
+        <div>
+          <h3>What I built</h3>
+          <p>
+            I created a simulated order producer and a Kafka pipeline that
+            validates incoming JSON, calculates order totals, and aggregates
+            completed orders into five-minute revenue and order metrics by
+            category.
+          </p>
+        </div>
+
+        <div>
+          <h3>Engineering choices</h3>
+          <p>
+            Event-time windows and a ten-minute watermark handle late data.
+            Spark checkpoints retain offsets and state, while idempotent
+            PostgreSQL writes prevent duplicate orders.
+          </p>
+        </div>
+
+        <div>
+          <h3>Result & validation</h3>
+          <p>
+            In a restart test, the consumer resumed from its checkpoint and
+            processed events published during downtime without creating
+            duplicate order records.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="cloud">
+      <div class="project-title">
+        <div>
+          <p class="eyebrow">03 / CLOUD DATA ENGINEERING</p>
+          <h2>Cloud Analytics Data Platform</h2>
+          <p class="tools">
+            AWS S3 · Glue · Athena · PySpark · Terraform
+          </p>
+        </div>
+
+        <a
+          class="button outline"
+          href="https://github.com/lilyhoffman/data-engineering-portfolio/tree/main/cloud-analytics-data-platform"
+        >
+          View code & README ↗
+        </a>
+      </div>
+
+      <ol class="flow" aria-label="Pipeline architecture">
+        <li>
+          <span>01</span>
+          <strong>NYC taxi / source Parquet</strong>
+        </li>
+        <li>
+          <span>02</span>
+          <strong>S3 Bronze / original data</strong>
+        </li>
+        <li>
+          <span>03</span>
+          <strong>Glue + PySpark / clean + partition</strong>
+        </li>
+        <li>
+          <span>04</span>
+          <strong>S3 Silver / Glue Catalog → Athena</strong>
+        </li>
+      </ol>
+
+      <div class="project-copy">
+        <div>
+          <h3>The problem</h3>
+          <p>
+            Raw trip records include invalid values and timestamps. SQL
+            analysis needs clean data and a storage layout that supports
+            focused queries.
+          </p>
+        </div>
+
+        <div>
+          <h3>What I built</h3>
+          <p>
+            I ingested January 2025 NYC taxi data into S3 and used AWS Glue
+            with PySpark to standardize the schema, validate trips, derive
+            duration, and write partitioned Parquet. Glue catalogs the output
+            for Athena SQL queries.
+          </p>
+        </div>
+
+        <div>
+          <h3>Engineering choices</h3>
+          <p>
+            Partitions follow actual pickup timestamps rather than the source
+            filename. Terraform definitions cover the core infrastructure and
+            were validated; the live AWS resources were created manually.
+          </p>
+        </div>
+
+        <div>
+          <h3>Result & validation</h3>
+          <p>
+            Quality rules removed 151,061 records (4.35%), producing 3,324,165
+            clean records from 3,475,226 source records.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Lily Hoffman</strong>
+      <span>Boston, MA · Data Science & Psychology</span>
+    </div>
+
+    <div class="footer-links">
+      <a href="mailto:lilynaavhoffman@gmail.com">Email ↗</a>
+      <a href="https://www.linkedin.com/in/lily-hoffman-79387425a/">
+        LinkedIn ↗
+      </a>
+      <a href="https://github.com/lilyhoffman">GitHub ↗</a>
+      <a href="assets/lily-hoffman-resume.pdf">Resume ↗</a>
+    </div>
+  </footer>
+</body>
+</html>
